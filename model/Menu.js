@@ -1,5 +1,5 @@
 const mongoose=require('mongoose')
-//Menu schema 
+
 const menuSchema= new mongoose.Schema({
     foodName:{
         type:String
