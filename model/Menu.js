@@ -1,4 +1,5 @@
 const mongoose=require('mongoose')
+//Menu schema 
 const menuSchema= new mongoose.Schema({
     foodName:{
         type:String
@@ -25,4 +26,4 @@ const menuSchema= new mongoose.Schema({
 
 })
   const  Menu=mongoose.model('menu',menuSchema)
-  module.exports=Menu
+  module.exports=Menu;
