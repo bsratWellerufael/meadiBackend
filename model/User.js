@@ -1,41 +1,45 @@
 const mongoose=require('mongoose')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
+const {isEmail}=require('validator')
+//const { validate } = require('./Menu')
 //const cookie_parser=require('cookie-parser')
 const userSchema=mongoose.Schema({
     resName:{
         type:String,
-        required:true
+        required:[true,'please enter resturant name']
     },
     resOwner:{
         type:String,
-        required:true
+        required:[true,'please enter owners name']
     },
     email:{
         type:String,
-        required:true,
+        required:[true, 'please enter an email'],
         unique:true,
-        lowercase:true
+        lowercase:true,
+        validate:[isEmail,'please enter a valid email']
     },
     phone:{
         type:Number,
-        require:true
+        required:[true,'please enter phone number']
     },
     address:{
         type:String,
-        required:true
+        required:[true,'please enter address']
     },
     city:{
         type:String,
-        required:true
+        required:[true,'please enter city']
     },
     resState:{
         type:String,
-        required:true
+        required:[true,'please enter state']
     },
     password:{
         type:String,
-        requirde:true,
+        required:[true, 'please enter password'],
+        minlength:[8,'make it strong password']
     }
 })
 // we hashed the user password!

@@ -21,6 +21,25 @@ const app=express()
 app.use(cors())
 app.use(express.json())
 
+//handle errors
+ const handleErrors=(err)=>{
+      console.log(err.message,err.code)
+     let errors={resName:"",resOwner:"",email:"",phone:"",address:"",city:"",resState:"",password:""}
+       
+     // duplicate key error
+     if(err.code===11000){
+        errors.email='that email is already registered'
+        return errors;
+     }
+        //validate error
+     if(err.message.includes("user validation failed")){
+          (Object.values(err.errors)).forEach(({properties})=>{
+            errors[properties.path]=properties.message
+          }) 
+          return errors;
+       }
+    }
+
 //generate the token 
 const createToken=(id)=>{
     return jwt.sign({ id },'meadi-food')
@@ -46,8 +65,8 @@ app.post('/owner_detail',async (req,res)=>{
         res.status(201).send('user is created')
     }
     catch(err){
-        console.log(err)
-        res.send('user is not created!')
+          const errors=handleErrors(err)
+          res.json({errors})
     }
 })
 
